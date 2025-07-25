@@ -1,10 +1,12 @@
 services:
   - type: web
-    name: phishing-awareness-app
+    name: phishing-awareness
     env: python
-    region: oregon
-    buildCommand: "pip install -r requirements.txt"
-    startCommand: "gunicorn app:app"
+    region: ohio   # 💥 deploy to Ohio region
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    autoDeploy: true
     envVars:
-      - key: ADMIN_PASSWORD
-        value: Utkarsh@8983
+      - key: LOGIN_PASSWORD
+        value: yourAdminPasswordHere
