@@ -1,0 +1,312 @@
+/* Fade-in animation */
+body {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Include all styles from earlier (dark mode, modal, responsive, etc.) */
+body.light-mode {
+    background: #f2f2f2;
+    color: #000;
+}
+body.dark-mode {
+    background: #121212;
+    color: #e0e0e0;
+}
+/* Additional CSS omitted for brevity */
+
+/* Modal styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  background-color: #fffdf8;
+  margin: 10% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 16px;
+  width: 80%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  color: #aaa;
+  float: right;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: black;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #112b3c;
+}
+/* Toggle Button */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 10px 14px;
+  background-color: #f0f0f0;
+  color: #1a1a1a;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 0 6px rgba(0,0,0,0.2);
+  z-index: 1000;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+  background-color: #121212;
+  color: #f5f5f5;
+}
+
+.dark-mode .container {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.dark-mode .warning {
+  background-color: #bb4444;
+}
+
+.dark-mode input,
+.dark-mode button {
+  background-color: #2a2a2a;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.dark-mode .tips-btn {
+  background-color: #f48342;
+  color: white;
+}
+
+.dark-mode .modal-content {
+  background-color: #2b2b2b;
+  color: #fff;
+}
+
+.dark-mode .toggle-btn {
+  background-color: #2a2a2a;
+  color: #f5f5f5;
+}
+.modal-content {
+  animation: slideFadeIn 0.4s ease-out;
+}
+
+@keyframes slideFadeIn {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+.log-box {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 10px;
+  max-height: 400px;
+  overflow-y: auto;
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+  font-family: monospace;
+  font-size: 14px;
+}
+
+.log-entry {
+  background: #ffffff;
+  margin-bottom: 8px;
+  padding: 10px;
+  border-left: 4px solid #1a73e8;
+  border-radius: 6px;
+  animation: fadeIn 0.3s ease;
+}
+
+.dark-mode .log-box {
+  background-color: #1e1e1e;
+}
+
+.dark-mode .log-entry {
+  background-color: #2b2b2b;
+  border-left: 4px solid #4e9af1;
+  color: #f1f1f1;
+}
+
+.back-btn {
+  display: inline-block;
+  margin-top: 20px;
+  text-decoration: none;
+  color: #246bfd;
+  font-weight: bold;
+}
+/* Fullscreen layout and center form */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make the login container responsive and centered */
+.container {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  background-color: #fffdf8;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark mode override for container */
+.dark-mode .container {
+  background-color: #1e1e1e;
+}
+/* Fullscreen blurred background image */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/static/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(8px) brightness(0.4);
+  z-index: -2;
+}
+
+/* Optional: overlay to dim it */
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 10, 10, 0.4);
+  z-index: -1;
+}
+/* ── Bigger sign‑in panel & larger form controls ───────────────────────────── */
+
+/* On ALL screens make the panel wider */
+.container {
+  width: 90%;          /* take 90 % of viewport width */
+  max-width: 640px;    /* …but don’t exceed 640 px */
+  padding: 40px 48px;  /* roomier inside */
+}
+
+/* Bump up typography & input sizes */
+.login-box h2        { font-size: 2rem; }
+
+.login-box input {
+  font-size: 1rem;    /* 16 px */
+  padding: 16px 14px; /* taller inputs */
+}
+
+.login-box button[type="submit"],
+.tips-btn {
+  font-size: 1.05rem; /* 17 px */
+  padding: 14px 0;    /* bigger buttons */
+}
+
+/* Optional: make the warning bar span full width of the panel */
+.warning {
+  margin-left: -48px;   /* negate container padding  */
+  margin-right: -48px;  /* so it touches the edges   */
+}
+
+/* ── Keep everything responsive ───────────────────────────────────────────── */
+
+/* On very small devices we’ll gently scale back */
+@media (max-width: 480px) {
+  .container        { max-width: 100%; padding: 28px; }
+  .login-box h2     { font-size: 1.6rem; }
+  .login-box input  { padding: 14px 12px; }
+  .tips-btn,
+  .login-box button[type="submit"] { font-size: 1rem; padding: 12px 0; }
+}
+/* Stack fields vertically with spacing */
+.form-group {
+  margin-bottom: 16px;
+}
+
+/* Improve input appearance */
+.login-box input {
+  width: 100%;
+  font-size: 1rem;
+  padding: 14px;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+/* Submit button styling */
+.login-box button[type="submit"] {
+  width: 100%;
+  padding: 14px;
+  background-color: #246bfd;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.login-box button[type="submit"]:hover {
+  background-color: #1651d8;
+}
+/* View Logs Button */
+.view-logs-btn {
+  display: block;
+  text-align: center;
+  background-color: #6c63ff;
+  color: white;
+  padding: 12px 0;
+  border-radius: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  transition: background 0.3s ease;
+  margin-top: 10px;
+}
+
+.view-logs-btn:hover {
+  background-color: #574ede;
+}
+.view-logs-btn.danger {
+  background-color: #e63946;
+}
+
+.view-logs-btn.danger:hover {
+  background-color: #c43038;
+}

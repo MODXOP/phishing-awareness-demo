@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Phishing Awareness Login</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <button id="toggleMode" class="toggle-btn">🌙 Dark Mode</button>
+
+    <div class="warning">⚠️ This is a phishing demo. Do not enter real credentials.</div>
+
+    <form method="POST" action="/submit" class="login-box">
+      <h2>Sign In</h2>
+      <div class="form-group">
+  <input type="text" name="email" placeholder="Email or phone" required>
+</div>
+<div class="form-group">
+  <input type="password" name="password" placeholder="Enter your password" required>
+</div>
+<div class="form-group">
+  <button type="submit">Next</button>
+</div>
+
+
+      <div class="phishing-signs">
+        <p><strong>🔍 Phishing signs:</strong></p>
+        <ul>
+          <li>Check the domain name (not google.com)</li>
+          <li>No HTTPS (look for 🔒 in address bar)</li>
+          <li>Poor design or unusual pop-ups</li>
+        </ul>
+      </div>
+
+      <button type="button" class="tips-btn" onclick="openModal()">More Safety Tips</button>
+      <div class="form-group">
+  <a href="/view-logs" class="view-logs-btn">🔐 View Captured Logs</a>
+</div>
+
+    </form>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h3>🛡️ Additional Phishing Safety Tips</h3>
+      <ul>
+        <li>Never click on suspicious links in emails.</li>
+        <li>Use two-factor authentication (2FA) whenever possible.</li>
+        <li>Install a trusted anti-phishing browser extension.</li>
+        <li>Don't reuse passwords across websites.</li>
+        <li>Report suspicious emails to your IT/security team.</li>
+      </ul>
+    </div>
+  </div>
+
+<script>
+  const toggleButton = document.getElementById("toggleMode");
+
+  function applyTheme(mode) {
+    if (mode === "dark") {
+      document.body.classList.add("dark-mode");
+      toggleButton.textContent = "☀️ Light Mode";
+    } else {
+      document.body.classList.remove("dark-mode");
+      toggleButton.textContent = "🌙 Dark Mode";
+    }
+  }
+
+  function toggleDarkMode() {
+    const isDark = document.body.classList.toggle("dark-mode");
+    const mode = isDark ? "dark" : "light";
+    localStorage.setItem("theme", mode);
+    toggleButton.textContent = isDark ? "☀️ Light Mode" : "🌙 Dark Mode";
+  }
+
+  toggleButton.addEventListener("click", toggleDarkMode);
+
+  // Apply saved theme on page load
+  const savedTheme = localStorage.getItem("theme") || "light";
+  applyTheme(savedTheme);
+</script>
+
+
+  <script>
+    function openModal() {
+      document.getElementById("modal").style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+
+    window.onclick = function (event) {
+      if (event.target == document.getElementById("modal")) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>
